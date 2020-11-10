@@ -94,7 +94,7 @@
                     location: "5 james lane, N2",
                     price: 45,
                     image: "math1.png",
-                    availableInventory:20
+                    availableInventory:10
                 },
                 cart:[],
                 showProduct: true,
@@ -128,7 +128,7 @@
                     return this.cart.length || '';
                 },
                 canAddToCart: function() {
-                    return this.product.availableInventory > this.cartItemCount;
+                    return this.product.availableInventory ;
                 }
             }
         });
