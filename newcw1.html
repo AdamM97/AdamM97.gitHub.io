@@ -15,19 +15,63 @@
             <h1 v-text='sitename'></h1>
             <button @click='showCheckout'>{{cartItemCount}} <span class="fas fa-shopping-cart"></span> Checkout</button>
         </header>
-        <div v-if='showProduct'>
-            <figure>
-                <p><img v-bind:src="product.image" alt="Lessons" height="100px" ></p>
-            </figure>
-            <h2 v-text="product.title"></h2>
-            <p v-text="product.description"></p>
-            <p>Price:£{{product.price}}</p>
-            <button @click='addToCart' v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
-            <button disabled='disabled' v-else>Add to cart</button>
-        </div>    
-        <div v-else>
+        <main>
+            <div v-if='showProduct'>
+                <figure>
+                    <p><img v-bind:src="product.image" alt="Lessons" height="100px" ></p>
+                </figure>
+                <h2 v-text="product.title"></h2>
+                <p v-text="product.description"></p>
+                <p>Price:£{{product.price}}</p>
+                <p>Available stock: {{product.availableInventory}}</p>
+                <button @click='addToCart' v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
+                <button disabled='disabled' v-else>Add to cart</button>
+            </div>    
+            <div v-else>
+                <h2>Checkout</h2>
+                <p>
+                    <strong>First Name:</strong>
+                    <input v-model="order.firstName"/>
+                </p>
+                <p>
+                    <strong>Last Name:</strong>
+                    <input v-model="order.lastName"/>
+                </p>
+                <p>
+                    <strong>Address:</strong>
+                    <input v-model="order.address"/>
+                </p>
+                <p>
+                    <strong> City:</strong>
+                    <input v-model="order.city"/>
+                </p>
+                
+                <p>
+                    <strong> Post Code:</strong>
+                    <input v-model="order.postCode"/>
+                </p>
 
-        </div>
+                <p>
+                    <strong>Borough:</strong>
+                    <select v-model="order.borough">
+                        <option disabled value="">Borough</option>
+                        <option>Barnet</option>
+                        <option>Brent</option>
+                        <option>Islington</option>
+                        <option>Middlsex</option>
+                    </select>
+                </p>
+                
+                <h2>Order Information</h2>
+                
+                <p>First Name: {{order.firstName}}</p>
+                <p>Last Name: {{order.lastName}}</p>
+                <P>Address: {{order.address}}</P>
+                <p>City: {{order.city}}</p>
+                <p>Post Code: {{order.postCode}}</p>
+                <p>Borough: {{order.borough}}</p>
+            </div>
+         </main>
     </div>
 
     <script type="text/javascript">
@@ -41,10 +85,18 @@
                     description: " A fun and interactive math lesson",
                     price: 45,
                     image: "math1.png",
-                    availableInventory:20,
+                    availableInventory:20
                 },
                 cart:[],
                 showProduct: true,
+                order: {
+                    firstName:'',
+                    lastName:'',
+                    address:'',
+                    city:'',
+                    borough:'',
+                    postCode:'',
+                }
             },
             methods: {
                 addToCart() {
