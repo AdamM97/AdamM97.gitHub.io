@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lessons for Sale</title>
+
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1 v-text='sitename'></h1>
+            <button @click='showCheckout'>{{cartItemCount}} <span class="fas fa-shopping-cart"></span> Checkout</button>
+        </header>
+        <div v-if='showProduct'>
+            <figure>
+                <p><img v-bind:src="product.image" alt="Lessons" height="100px" ></p>
+            </figure>
+            <h2 v-text="product.title"></h2>
+            <p v-text="product.description"></p>
+            <p>Price:£{{product.price}}</p>
+            <button @click='addToCart' v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
+            <button disabled='disabled' v-else>Add to cart</button>
+        </div>    
+        <div v-else>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var webstore = new Vue({
+            el: '#app',
+            data: {
+                sitename: 'Lessons for Sale',
+                product: {
+                    id: 1001,
+                    title: "Mathematics",
+                    description: " A fun and interactive math lesson",
+                    price: 45,
+                    image: "math1.png",
+                    availableInventory:20,
+                },
+                cart:[],
+                showProduct: true,
+            },
+            methods: {
+                addToCart() {
+                    this.cart.push(this.product.id)
+                },
+
+                showCheckout() {
+                    this.showProduct = this.showProduct ? false : true;
+                }
+            },
+            computed: {
+                cartItemCount: function() {
+                    return this.cart.length || '';
+                },
+                canAddToCart: function() {
+                    return this.product.availableInventory > this.cartItemCount;
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
