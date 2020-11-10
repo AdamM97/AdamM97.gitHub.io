@@ -25,7 +25,7 @@
                 <p>Price:£{{product.price}}</p>
                 <p>Available space: {{product.availableInventory}}</p>
                 <p>Location: {{product.location}}</p>
-                <button @click='addToCart' v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
+                <button @click='addToCart' v-on:click="reduce" v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
                 <button disabled='disabled' v-else>Add to cart</button>
             </div>    
             <div v-else>
@@ -118,6 +118,9 @@
                 },
                 submitForm() {
                     alert('Order Submitted!')
+                },
+                reduce() {
+                    this.product.availableInventory --;
                 }
             },
             computed: {
