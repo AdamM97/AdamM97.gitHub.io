@@ -23,7 +23,8 @@
                 <h2 v-text="product.title"></h2>
                 <p v-text="product.description"></p>
                 <p>Price:£{{product.price}}</p>
-                <p>Available stock: {{product.availableInventory}}</p>
+                <p>Available space: {{product.availableInventory}}</p>
+                <p>Location: {{product.location}}</p>
                 <button @click='addToCart' v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
                 <button disabled='disabled' v-else>Add to cart</button>
             </div>    
@@ -31,19 +32,23 @@
                 <h2>Checkout</h2>
                 <p>
                     <strong>First Name:</strong>
-                    <input v-model="order.firstName"/>
+                    <input v-model.trim="order.firstName"/>
                 </p>
                 <p>
                     <strong>Last Name:</strong>
-                    <input v-model="order.lastName"/>
+                    <input v-model.trim="order.lastName"/>
                 </p>
                 <p>
                     <strong>Address:</strong>
                     <input v-model="order.address"/>
                 </p>
                 <p>
+                    <strong>Phone Number:</strong>
+                    <input v-model.number="order.phone" type="number"/>
+                </p>
+                <p>
                     <strong> City:</strong>
-                    <input v-model="order.city"/>
+                    <input v-model.trim="order.city"/>
                 </p>
                 
                 <p>
@@ -67,9 +72,12 @@
                 <p>First Name: {{order.firstName}}</p>
                 <p>Last Name: {{order.lastName}}</p>
                 <P>Address: {{order.address}}</P>
+                <p>Phone Number: {{order.phone}}</p>
                 <p>City: {{order.city}}</p>
                 <p>Post Code: {{order.postCode}}</p>
                 <p>Borough: {{order.borough}}</p>
+
+                <button @click='submitForm'>Submit Order</button>
             </div>
          </main>
     </div>
@@ -83,6 +91,7 @@
                     id: 1001,
                     title: "Mathematics",
                     description: " A fun and interactive math lesson",
+                    location: "5 james lane, N2",
                     price: 45,
                     image: "math1.png",
                     availableInventory:20
@@ -93,6 +102,7 @@
                     firstName:'',
                     lastName:'',
                     address:'',
+                    phone:'',
                     city:'',
                     borough:'',
                     postCode:'',
@@ -105,6 +115,9 @@
 
                 showCheckout() {
                     this.showProduct = this.showProduct ? false : true;
+                },
+                submitForm() {
+                    alert('Order Submitted!')
                 }
             },
             computed: {
