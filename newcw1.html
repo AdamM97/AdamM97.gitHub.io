@@ -29,6 +29,7 @@
                 <span v-if="product.availableInventory == 0">Out of stock</span>
                 <span v-else= ""></span>
                 <button disabled='disabled' v-else>Add to cart</button>
+                <p><span v-for='n in 5'>⭐</span></p>
             </div>    
             <div v-else>
                 <h2>Checkout</h2>
