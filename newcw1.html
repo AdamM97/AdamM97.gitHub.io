@@ -53,7 +53,7 @@
                     </div> 
                     <div class="cart-total">
                         <span>Total</span>
-                        
+
                     </div>            
                 </div>
 
@@ -162,6 +162,7 @@
                 
             },
             computed: {
+                //sorts by numerical lower - higher price
                 sortedProducts() {
                     let productsArray = this.products.slice(0);
                     function compare(a,b) {
@@ -172,13 +173,45 @@
                         return 0;
                     }
                     return productsArray.sort(compare);
-                }
-               // cartItemCount: function() {
-                //    return this.cart.length || '';
-               // },
-               // canAddToCart: function() {
-                //    return this.product.availableInventory ;
-              //  }
+                },
+                //sorts by price highest - lowest
+                sortedProducts2() {
+                    let productsArray = this.products.slice(0);
+                    function compare(a,b) {
+                        if (a.price > b.price)
+                            return -1;
+                        if (a.price < b.price)
+                            return 1;
+                        return 0;
+                    }
+                    return productsArray.sort(compare);
+                },
+                //this sorts using alphabetical A-Z
+                sortedProducts3() {
+                    let productsArray = this.products.slice(0);
+                    function compare(a,b) {
+                        if (a.title < b.title)
+                            return -1;
+                        if (a.title > b.title)
+                            return 1;
+                        return 0;
+                    }
+                    return productsArray.sort(compare);
+                },
+                //sorts using alphabetical Z-A
+                sortedProducts4() {
+                    let productsArray = this.products.slice(0);
+                    function compare(a,b) {
+                        if (a.title > b.title)
+                            return -1;
+                        if (a.title < b.title)
+                            return 1;
+                        return 0;
+                    }
+                    return productsArray.sort(compare);
+                },
+                
+              
             },
         });
     </script>
