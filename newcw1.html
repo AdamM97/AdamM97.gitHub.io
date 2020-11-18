@@ -7,29 +7,38 @@
     <title>Lessons for Sale</title>
 
     <script src="https://unpkg.com/vue"></script>
+    <script src="products.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
     <div id="app">
         <header>
             <h1 v-text='sitename'></h1>
-            <button @click='showCheckout'>{{cartItemCount}} <span class="fas fa-shopping-cart"></span> Checkout</button>
+            <button @click='showCheckout'>{{this.cart.length}} <span class="fas fa-shopping-cart"></span> Checkout</button>
         </header>
         <main>
             <div v-if='showProduct'>
-                <figure>
-                    <p><img v-bind:src="product.image" alt="Lessons" height="100px" ></p>
-                </figure>
-                <h2 v-text="product.title"></h2>
-                <p v-text="product.description"></p>
-                <p>Price:£{{product.price}}</p>
-                <p>Available space: {{product.availableInventory}}</p>
-                <p>Location: {{product.location}}</p>
-                <button @click='addToCart' v-on:click="reduce" v-if='canAddToCart'> <span class="fas fa-cart-plus"></span> Add to cart</button>
-                <span v-if="product.availableInventory == 0">Out of stock</span>
-                <span v-else= ""></span>
-                <button disabled='disabled' v-else>Add to cart</button>
-                <p><span v-for='n in 5'>⭐</span></p>
+                <div v-for='product in sortedProducts'>
+                    <figure>
+                        <p><img v-bind:src="product.image" alt="Lessons" height="100px" ></p>
+                    </figure>
+                    <h2 v-text="product.title"></h2>
+                    <p v-text="product.description"></p>
+                    <p>Price:£{{product.price}}</p>
+                    <p>Available space: {{product.availableInventory}}</p>
+                    <p>Location: {{product.location}}</p>
+                    <button v-on:click='addToCart(product)' v-if='canAddToCart(product)'> <span class="fas fa-cart-plus"></span> Add to cart</button>
+                    <button disabled='disabled' v-else>Add to cart</button>
+                    <span v-if='product.availableInventory === cartCount(product.id)'>Out of stock</span>
+                    <span v-else-if= 'product.availableInventory - cartCount(product.id) < 5'>
+                        Only {{product.availableInventory - cartCount(product.id)}} left
+                    </span>    
+                    <span v-else>Buy now!</span>
+                    <p>
+                        <span v-for='n in product.rating'>⭐</span>
+                        <span v-for='n in 5 - product.rating'><span class="fas fa-star"><span></span>
+                    </p>
+                </div>
             </div>    
             <div v-else>
                 <h2>Checkout</h2>
@@ -90,15 +99,17 @@
             el: '#app',
             data: {
                 sitename: 'Lessons for Sale',
-                product: {
-                    id: 1001,
-                    title: "Mathematics",
-                    description: " A fun and interactive math lesson",
-                    location: "5 james lane, N2",
-                    price: 45,
-                    image: "math1.png",
-                    availableInventory:10
-                },
+                //product: {
+                    //id: 1001,
+                   // title: "Mathematics",
+                    //description: " A fun and interactive math lesson",
+                    //location: "5 james lane, N2",
+                   // price: 45,
+                    //image: "math1.png",
+                    //availableInventory:10,
+                    //rating: 3,
+               //},
+                products: products,
                 cart:[],
                 showProduct: true,
                 order: {
@@ -112,8 +123,8 @@
                 }
             },
             methods: {
-                addToCart() {
-                    this.cart.push(this.product.id)
+                addToCart(product) {
+                    this.cart.push(product.id);
                 },
 
                 showCheckout() {
@@ -122,18 +133,39 @@
                 submitForm() {
                     alert('Order Submitted!')
                 },
-                reduce() {
-                    this.product.availableInventory --;
+                //reduce(availableInventory) {
+                  // return availableInventory --;
+                //},
+                canAddToCart (product) {
+                    return product.availableInventory > this.cartCount(product.id)
+                },
+                cartCount(id) {
+                    let count =0;
+                    for(let i=0; i<this.cart.length; i++) {
+                        if(this.cart[i] === id) count++;
+                    }
+                    return count;
                 }
             },
             computed: {
-                cartItemCount: function() {
-                    return this.cart.length || '';
-                },
-                canAddToCart: function() {
-                    return this.product.availableInventory ;
+                sortedProducts() {
+                    let productsArray = this.products.slice(0);
+                    function compare(a,b) {
+                        if (a.price > b.price)
+                            return 1;
+                        if (a.price < b.price)
+                            return -1;
+                        return 0;
+                    }
+                    return productsArray.sort(compare);
                 }
-            }
+               // cartItemCount: function() {
+                //    return this.cart.length || '';
+               // },
+               // canAddToCart: function() {
+                //    return this.product.availableInventory ;
+              //  }
+            },
         });
     </script>
     
