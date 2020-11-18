@@ -41,6 +41,22 @@
                 </div>
             </div>    
             <div v-else>
+                <div class="cart">
+                    <p class="cart-title">Your Lessons</p>     
+                    <div class="item" v-for="products in products">
+                        <div class="item details">
+                            <p class="item-title">{{products.title}}</p>
+                            <p class="item-price">
+                                <span>{{products.price}}</span>
+                            </p>
+                        </div>
+                    </div> 
+                    <div class="cart-total">
+                        <span>Total</span>
+                        
+                    </div>            
+                </div>
+
                 <h2>Checkout</h2>
                 <p>
                     <strong>First Name:</strong>
@@ -120,14 +136,7 @@
                 },
 
                 showCheckout() {
-                    this.showProduct = this.showProduct ? false : true;
-                    if (this.showProduct = true) {
-                        document.getElementById("checkout").innerHTML = "Back to shop";
-                    }
-                    if (this.showProduct = false) {
-                        document.getElementById("checkout").innerHTML = "checkout";
-                    }
-                    
+                    this.showProduct = this.showProduct ? false : true;        
                 },
                 submitForm() {
                     alert('Order Submitted!')
