@@ -14,7 +14,7 @@
     <div id="app">
         <header>
             <h1 v-text='sitename'></h1>
-            <button @click='showCheckout'>{{this.cart.length}} <span class="fas fa-shopping-cart"></span> Checkout</button>
+            <button id="checkout"  @click='showCheckout'>{{this.cart.length}} <span class="fas fa-shopping-cart"></span>Checkout</button>        
         </header>
         <main>
             <div v-if='showProduct'>
@@ -44,11 +44,11 @@
                 <h2>Checkout</h2>
                 <p>
                     <strong>First Name:</strong>
-                    <input v-model.trim="order.firstName"/>
+                    <input v-model.trim="order.firstName" type="text"/>
                 </p>
                 <p>
                     <strong>Last Name:</strong>
-                    <input v-model.trim="order.lastName"/>
+                    <input v-model.trim="order.lastName" type="text"/>
                 </p>
                 <p>
                     <strong>Address:</strong>
@@ -99,16 +99,7 @@
             el: '#app',
             data: {
                 sitename: 'Lessons for Sale',
-                //product: {
-                    //id: 1001,
-                   // title: "Mathematics",
-                    //description: " A fun and interactive math lesson",
-                    //location: "5 james lane, N2",
-                   // price: 45,
-                    //image: "math1.png",
-                    //availableInventory:10,
-                    //rating: 3,
-               //},
+
                 products: products,
                 cart:[],
                 showProduct: true,
@@ -120,7 +111,8 @@
                     city:'',
                     borough:'',
                     postCode:'',
-                }
+                },
+               
             },
             methods: {
                 addToCart(product) {
@@ -129,6 +121,13 @@
 
                 showCheckout() {
                     this.showProduct = this.showProduct ? false : true;
+                    if (this.showProduct = true) {
+                        document.getElementById("checkout").innerHTML = "Back to shop";
+                    }
+                    if (this.showProduct = false) {
+                        document.getElementById("checkout").innerHTML = "checkout";
+                    }
+                    
                 },
                 submitForm() {
                     alert('Order Submitted!')
@@ -149,6 +148,8 @@
                 reduce (product) {
                     product.availableInventory --;
                 },
+
+                
                 
             },
             computed: {
