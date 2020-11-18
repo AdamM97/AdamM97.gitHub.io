@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lessons for Sale</title>
-
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue"></script>
     <script src="products.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -34,7 +34,7 @@
                       <option>Subject</option>
                   </select>
                 </p>               
-                <div v-for='product in sortedProducts' >
+                <div class="card" v-for='product in sortedProducts' >
                     <figure>
                         <p><img v-bind:src="product.image" alt="Lessons" height="100px" ></p>
                     </figure>

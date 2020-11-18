@@ -1,0 +1,21 @@
+/* reset */
+* {
+    margin: 4;
+    padding: 4;
+}
+body {
+    background-color: white;
+}
+
+h1 {
+    color: blue;
+}
+
+.card {
+    margin: 2px;
+    padding: 30px;
+    border: 2px solid;
+    float: left; 
+    display:inline; 
+    width: 28%;
+}
