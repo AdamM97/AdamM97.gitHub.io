@@ -8,7 +8,11 @@ body {
 }
 
 h1 {
-    color: blue;
+
+    color: rgb(30, 196, 127);
+    font-size: 60px;
+    font-family: 'Ultra', cursive, sans-serif;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .card {
@@ -19,3 +23,4 @@ h1 {
     display:inline; 
     width: 28%;
 }
+
