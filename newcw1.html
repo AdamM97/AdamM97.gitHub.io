@@ -27,7 +27,7 @@
                     <p>Price:£{{product.price}}</p>
                     <p>Available space: {{product.availableInventory}}</p>
                     <p>Location: {{product.location}}</p>
-                    <button v-on:click='addToCart(product)' @click="reduce" v-if='canAddToCart(product)'> <span class="fas fa-cart-plus"></span> Add to cart</button>
+                    <button v-on:click='addToCart(product)' @click="reduce(product)" v-if='canAddToCart(product)'> <span class="fas fa-cart-plus"></span> Add to cart</button>
                     <button disabled='disabled' v-else>Add to cart</button>
                     <span v-if='product.availableInventory === cartCount(product.id)'>Out of stock</span>
                     <span v-else-if= 'product.availableInventory - cartCount(product.id) < 5'>
