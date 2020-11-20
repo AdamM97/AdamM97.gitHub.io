@@ -26,6 +26,7 @@
                     <input type="radio" id="Descend" value="descend" v-model="sort.type">
                     <label for="Descend">Desscending</label>
                 </p>
+                <button v-on:click='product in sortedProducts2'>Sort</button>
                 <p>
                   <strong>Sort By:</strong> 
                   <select v-model="sort.using">
@@ -60,7 +61,7 @@
             </div>    
             <div v-else>
                 <div class="cart">
-                    <p class="cart-title">Your Lessons</p>     
+                    <h2 class="cart-title">Your Lessons</h2>     
                     <div class="item" v-for="products in products">
                         <div class="item details">
                             <p class="item-title">{{products.title}}</p>
